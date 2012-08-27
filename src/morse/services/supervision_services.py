@@ -50,15 +50,29 @@ def activate(component_name):
         raise MorseRPCTypeError("Component %s not found. Can't activate" % detail)
 
 @service(component = "simulation")
+def activate_all(component_name):
+    """ Enable the functionality of the all component in the scene
+    """
+    for component in bge.logic.componentDict:
+        bge.logic.componentDict[component]._active = True
+
+@service(component = "simulation")
 def deactivate(component_name):
-    """ Stop the specified component from calling its default_action method
+    """ Stop the all component from calling its default_action method
     """
     try:
         bge.logic.componentDict[component_name]._active = False
     except KeyError as detail:
         logger.warn("Component %s not found. Can't deactivate" % detail)
         raise MorseRPCTypeError("Component %s not found. Can't deactivate" % detail)
-        
+
+@service(component = "simulation")
+def deactivate_all(component_name):
+    """ Stop the specified component from calling its default_action method
+    """
+    for component in bge.logic.componentDict:
+        bge.logic.componentDict[component]._active = False
+
 @service(component = "simulation")
 def suspend_dynamics():
     """ Suspends physics for all object in the scene.
