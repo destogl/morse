@@ -50,7 +50,7 @@ def activate(component_name):
         raise MorseRPCTypeError("Component %s not found. Can't activate" % detail)
 
 @service(component = "simulation")
-def activate_all(component_name):
+def activate_all():
     """ Enable the functionality of the all component in the scene
     """
     for component in bge.logic.componentDict:
@@ -58,7 +58,7 @@ def activate_all(component_name):
 
 @service(component = "simulation")
 def deactivate(component_name):
-    """ Stop the all component from calling its default_action method
+    """ Stop the specified component from calling its default_action method
     """
     try:
         bge.logic.componentDict[component_name]._active = False
@@ -67,8 +67,8 @@ def deactivate(component_name):
         raise MorseRPCTypeError("Component %s not found. Can't deactivate" % detail)
 
 @service(component = "simulation")
-def deactivate_all(component_name):
-    """ Stop the specified component from calling its default_action method
+def deactivate_all():
+    """ Stop the all component from calling its default_action method
     """
     for component in bge.logic.componentDict:
         bge.logic.componentDict[component]._active = False
